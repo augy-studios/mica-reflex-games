@@ -24,6 +24,18 @@ class KnowledgeGames(commands.Cog):
             self._countries_cache = await fetch_countries()
         return self._countries_cache
 
+    async def trigger_game(self, channel: discord.TextChannel, game_key: str = None):
+        """Called by scheduler; routes to correct trigger by game_key."""
+        dispatch = {
+            "bait_and_hook": self.trigger_bait_and_hook,
+            "open_bounty": self.trigger_open_bounty,
+            "flag_blitz": self.trigger_flag_blitz,
+            "blurred_vision": self.trigger_blurred_vision,
+        }
+        fn = dispatch.get(game_key)
+        if fn:
+            await fn(channel)
+
     # ── BAIT AND HOOK ──────────────────────────────────────────────────────
 
     async def trigger_bait_and_hook(self, channel: discord.TextChannel):

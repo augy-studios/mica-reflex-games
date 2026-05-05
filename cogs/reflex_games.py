@@ -14,6 +14,18 @@ class ReflexGames(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    async def trigger_game(self, channel: discord.TextChannel, game_key: str = None):
+        """Called by scheduler; routes to correct trigger by game_key."""
+        dispatch = {
+            "dont_touch_it": self.trigger_dont_touch_it,
+            "sniper_window": self.trigger_sniper_window,
+            "echo_chamber": self.trigger_echo_chamber,
+            "freeze_tag": self.trigger_freeze_tag,
+        }
+        fn = dispatch.get(game_key)
+        if fn:
+            await fn(channel)
+
     # ── DON'T TOUCH IT ─────────────────────────────────────────────────────
 
     async def trigger_dont_touch_it(self, channel: discord.TextChannel):
