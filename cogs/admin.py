@@ -113,6 +113,18 @@ class Admin(commands.Cog):
         )
         await interaction.response.send_message(embed=embed, ephemeral=True)
 
+    @games.command(name="setchannelall", description="Set one channel for all games at once.")
+    @app_commands.describe(channel="The channel to use for every game.")
+    async def games_setchannelall(self, interaction: discord.Interaction, channel: discord.TextChannel):
+        if not self._is_admin(interaction):
+            return await interaction.response.send_message("❌ You need **Manage Channels** permission.", ephemeral=True)
+        for key in GAME_KEYS:
+            self.bot.db.set_game_channel(interaction.guild_id, key, channel.id)
+        await interaction.response.send_message(
+            f"📢 All games will now trigger in {channel.mention}.",
+            ephemeral=True
+        )
+
     @games.command(name="enableall", description="Enable all games in this server.")
     async def games_enableall(self, interaction: discord.Interaction):
         if not self._is_admin(interaction):

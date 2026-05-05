@@ -11,8 +11,9 @@ PAGES = [
         "entries": [
             ("games", "enable",      "Enable a specific game in this server."),
             ("games", "disable",     "Disable a specific game in this server."),
-            ("games", "setchannel",  "Set which channel a game triggers in."),
-            ("games", "clearchannel","Remove the custom channel for a game."),
+            ("games", "setchannel",    "Set which channel a game triggers in."),
+            ("games", "setchannelall", "Set one channel for all games at once."),
+            ("games", "clearchannel",  "Remove the custom channel for a game."),
             ("games", "status",      "View all games and their enabled status."),
             ("games", "enableall",   "Enable all 15 games at once."),
             ("games", "disableall",  "Disable all 15 games at once."),
