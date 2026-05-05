@@ -33,7 +33,15 @@ class CoreGames(commands.Cog):
 
     async def trigger_game(self, channel: discord.TextChannel, game_key: str = None):
         """Called by scheduler; routes to correct trigger by game_key."""
-        pass  # Individual triggers used directly
+        dispatch = {
+            "drop_zone": self.trigger_drop_zone,
+            "ghost_hunt": self.trigger_ghost_hunt,
+            "burst_round": self.trigger_burst_round,
+            "copycat": self.trigger_copycat,
+        }
+        fn = dispatch.get(game_key)
+        if fn:
+            await fn(channel)
 
     async def trigger_drop_zone(self, channel: discord.TextChannel):
         guild_id = channel.guild.id

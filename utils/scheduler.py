@@ -62,7 +62,17 @@ class GameScheduler:
             if cog and hasattr(cog, "trigger_game"):
                 channel = self._resolve_channel(guild_id, game_key, guild)
                 if channel:
-                    asyncio.create_task(cog.trigger_game(channel))
+                    task = asyncio.create_task(cog.trigger_game(channel, game_key))
+                    task.add_done_callback(
+                        lambda t, gk=game_key, gid=guild_id: (
+                            logger.error(
+                                f"Error running {gk} in guild {gid}: {t.exception()}",
+                                exc_info=t.exception(),
+                            )
+                            if not t.cancelled() and t.exception()
+                            else None
+                        )
+                    )
                     logger.info(f"Triggered {game_key} in guild {guild_id}")
             # Schedule next occurrence
             self._schedule_next(guild_id, game_key)
