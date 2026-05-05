@@ -3,6 +3,7 @@ from discord.ext import commands
 import asyncio
 import logging
 import os
+import time
 from dotenv import load_dotenv
 from database import Database
 from utils.scheduler import GameScheduler
@@ -29,6 +30,7 @@ COGS = [
     "cogs.chaos",
     "cogs.events",
     "cogs.help",
+    "cogs.botinfo",
 ]
 
 
@@ -41,6 +43,7 @@ class Mica(commands.Bot):
         super().__init__(command_prefix="!", intents=intents)
         self.db = Database()
         self.scheduler = GameScheduler(self)
+        self.start_time = time.time()
 
     async def setup_hook(self):
         self.db.init()
@@ -54,22 +57,28 @@ class Mica(commands.Bot):
         self._synced_commands = {cmd.name: cmd for cmd in synced}
         logger.info("Slash commands synced globally.")
 
-    async def on_ready(self):
-        logger.info(f"Logged in as {self.user} (ID: {self.user.id})")
+    async def _update_presence(self):
+        guild_count = len(self.guilds)
         await self.change_presence(
             activity=discord.Activity(
                 type=discord.ActivityType.watching,
-                name="for your reflexes 👀"
+                name=f"{guild_count} guilds' reaction speeds"
             )
         )
+
+    async def on_ready(self):
+        logger.info(f"Logged in as {self.user} (ID: {self.user.id})")
+        await self._update_presence()
         self.scheduler.start()
 
     async def on_guild_join(self, guild: discord.Guild):
         self.db.register_guild(guild.id)
         logger.info(f"Joined guild: {guild.name} ({guild.id})")
+        await self._update_presence()
 
     async def on_guild_remove(self, guild: discord.Guild):
         logger.info(f"Left guild: {guild.name} ({guild.id})")
+        await self._update_presence()
 
 
 async def main():
