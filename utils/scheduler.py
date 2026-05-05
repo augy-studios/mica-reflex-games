@@ -94,10 +94,6 @@ class GameScheduler:
             ch = guild.get_channel(setting["channel_id"])
             if ch:
                 return ch
-        # Fallback: first text channel the bot can send to
-        for ch in guild.text_channels:
-            if ch.permissions_for(guild.me).send_messages:
-                return ch
         return None
 
     def _schedule_next(self, guild_id: int, game_key: str):

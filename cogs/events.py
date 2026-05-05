@@ -26,11 +26,10 @@ class Events(commands.Cog):
         self.bot.db.register_guild(guild.id)
         logger.info(f"Registered new guild: {guild.name} ({guild.id})")
 
-        # Find a suitable channel to send a welcome message
-        channel = next(
-            (c for c in guild.text_channels if c.permissions_for(guild.me).send_messages),
-            None
-        )
+        # Send welcome message only to the guild's designated system channel
+        channel = guild.system_channel
+        if channel and not channel.permissions_for(guild.me).send_messages:
+            channel = None
         if channel:
             embed = discord.Embed(
                 title="👋 Hey there! I'm Mica.",
