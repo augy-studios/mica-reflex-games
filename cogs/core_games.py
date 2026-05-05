@@ -27,10 +27,7 @@ class CoreGames(commands.Cog):
             return None
         if setting["channel_id"]:
             return guild.get_channel(setting["channel_id"])
-        return next(
-            (c for c in guild.text_channels if c.permissions_for(guild.me).send_messages),
-            None
-        )
+        return None
 
     # ── DROP ZONE ──────────────────────────────────────────────────────────
 
