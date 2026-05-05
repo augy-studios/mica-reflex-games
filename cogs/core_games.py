@@ -281,29 +281,29 @@ class CoreGames(commands.Cog):
 
     @trigger.command(name="dropzone", description="Manually trigger Drop Zone.")
     async def trigger_drop_zone_cmd(self, interaction: discord.Interaction):
-        if not interaction.user.guild_permissions.administrator:
-            return await interaction.response.send_message("❌ Admins only.", ephemeral=True)
+        if not interaction.user.guild_permissions.manage_channels:
+            return await interaction.response.send_message("❌ You need **Manage Channels** permission.", ephemeral=True)
         await interaction.response.send_message("🎯 Triggering Drop Zone...", ephemeral=True)
         await self.trigger_drop_zone(interaction.channel)
 
     @trigger.command(name="ghosthunt", description="Manually trigger Ghost Hunt.")
     async def trigger_ghost_hunt_cmd(self, interaction: discord.Interaction):
-        if not interaction.user.guild_permissions.administrator:
-            return await interaction.response.send_message("❌ Admins only.", ephemeral=True)
+        if not interaction.user.guild_permissions.manage_channels:
+            return await interaction.response.send_message("❌ You need **Manage Channels** permission.", ephemeral=True)
         await interaction.response.send_message("🎯 Triggering Ghost Hunt...", ephemeral=True)
         await self.trigger_ghost_hunt(interaction.channel)
 
     @trigger.command(name="burst", description="Manually trigger Burst Round.")
     async def trigger_burst_cmd(self, interaction: discord.Interaction):
-        if not interaction.user.guild_permissions.administrator:
-            return await interaction.response.send_message("❌ Admins only.", ephemeral=True)
+        if not interaction.user.guild_permissions.manage_channels:
+            return await interaction.response.send_message("❌ You need **Manage Channels** permission.", ephemeral=True)
         await interaction.response.send_message("🎯 Triggering Burst Round...", ephemeral=True)
         await self.trigger_burst_round(interaction.channel)
 
     @trigger.command(name="copycat", description="Manually trigger Copycat.")
     async def trigger_copycat_cmd(self, interaction: discord.Interaction):
-        if not interaction.user.guild_permissions.administrator:
-            return await interaction.response.send_message("❌ Admins only.", ephemeral=True)
+        if not interaction.user.guild_permissions.manage_channels:
+            return await interaction.response.send_message("❌ You need **Manage Channels** permission.", ephemeral=True)
         await interaction.response.send_message("🎯 Triggering Copycat...", ephemeral=True)
         await self.trigger_copycat(interaction.channel)
 

@@ -28,6 +28,7 @@ COGS = [
     "cogs.duel_games",
     "cogs.chaos",
     "cogs.events",
+    "cogs.help",
 ]
 
 
@@ -49,7 +50,8 @@ class Mica(commands.Bot):
                 logger.info(f"Loaded cog: {cog}")
             except Exception as e:
                 logger.error(f"Failed to load cog {cog}: {e}")
-        await self.tree.sync()
+        synced = await self.tree.sync()
+        self._synced_commands = {cmd.name: cmd for cmd in synced}
         logger.info("Slash commands synced globally.")
 
     async def on_ready(self):
