@@ -1,4 +1,4 @@
-# Mica ⚡
+# <img src="/MRG-main.png" height="30" alt="icon"> Mica
 
 A Discord bot for reflex games. Mica spontaneously triggers a suite of reflex, knowledge, and timing games across your server — with chaos modifiers that keep things unpredictable. Designed for public multi-guild deployment.
 
