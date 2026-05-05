@@ -2,8 +2,6 @@
 
 A Discord bot packed with fast-paced minigames, knowledge challenges, multiplayer duels, and unpredictable chaos modifiers. Designed to keep multi-timezone servers engaged around the clock.
 
-Built with [discord.py](https://discordpy.readthedocs.io/) and slash commands. Per-guild configuration stored in JSON — no database required.
-
 ---
 
 ## Features
