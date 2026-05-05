@@ -316,29 +316,29 @@ class KnowledgeGames(commands.Cog):
 
     @ktrigger.command(name="bait", description="Trigger Bait and Hook.")
     async def ktrigger_bait(self, interaction: discord.Interaction):
-        if not interaction.user.guild_permissions.administrator:
-            return await interaction.response.send_message("❌ Admins only.", ephemeral=True)
+        if not interaction.user.guild_permissions.manage_channels:
+            return await interaction.response.send_message("❌ You need **Manage Channels** permission.", ephemeral=True)
         await interaction.response.send_message("🎯 Triggering Bait and Hook...", ephemeral=True)
         await self.trigger_bait_and_hook(interaction.channel)
 
     @ktrigger.command(name="bounty", description="Trigger Open Bounty.")
     async def ktrigger_bounty(self, interaction: discord.Interaction):
-        if not interaction.user.guild_permissions.administrator:
-            return await interaction.response.send_message("❌ Admins only.", ephemeral=True)
+        if not interaction.user.guild_permissions.manage_channels:
+            return await interaction.response.send_message("❌ You need **Manage Channels** permission.", ephemeral=True)
         await interaction.response.send_message("🎯 Triggering Open Bounty...", ephemeral=True)
         await self.trigger_open_bounty(interaction.channel)
 
     @ktrigger.command(name="flag", description="Trigger Flag Blitz.")
     async def ktrigger_flag(self, interaction: discord.Interaction):
-        if not interaction.user.guild_permissions.administrator:
-            return await interaction.response.send_message("❌ Admins only.", ephemeral=True)
+        if not interaction.user.guild_permissions.manage_channels:
+            return await interaction.response.send_message("❌ You need **Manage Channels** permission.", ephemeral=True)
         await interaction.response.send_message("🎯 Triggering Flag Blitz...", ephemeral=True)
         await self.trigger_flag_blitz(interaction.channel)
 
     @ktrigger.command(name="blurred", description="Trigger Blurred Vision.")
     async def ktrigger_blurred(self, interaction: discord.Interaction):
-        if not interaction.user.guild_permissions.administrator:
-            return await interaction.response.send_message("❌ Admins only.", ephemeral=True)
+        if not interaction.user.guild_permissions.manage_channels:
+            return await interaction.response.send_message("❌ You need **Manage Channels** permission.", ephemeral=True)
         await interaction.response.send_message("🎯 Triggering Blurred Vision...", ephemeral=True)
         await self.trigger_blurred_vision(interaction.channel)
 

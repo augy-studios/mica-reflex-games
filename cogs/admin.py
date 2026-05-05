@@ -35,10 +35,7 @@ class Admin(commands.Cog):
         self.bot = bot
 
     def _is_admin(self, interaction: discord.Interaction) -> bool:
-        return (
-            interaction.user.guild_permissions.administrator
-            or interaction.user.guild_permissions.manage_guild
-        )
+        return interaction.user.guild_permissions.manage_channels
 
     # ── /games config ──────────────────────────────────────────────────────
 
@@ -49,7 +46,7 @@ class Admin(commands.Cog):
     @app_commands.choices(game=GAME_CHOICES)
     async def games_enable(self, interaction: discord.Interaction, game: app_commands.Choice[str]):
         if not self._is_admin(interaction):
-            return await interaction.response.send_message("❌ You need **Manage Server** permission.", ephemeral=True)
+            return await interaction.response.send_message("❌ You need **Manage Channels** permission.", ephemeral=True)
         self.bot.db.set_game_enabled(interaction.guild_id, game.value, True)
         await interaction.response.send_message(
             f"✅ **{game.name}** has been **enabled** in this server.",
@@ -61,7 +58,7 @@ class Admin(commands.Cog):
     @app_commands.choices(game=GAME_CHOICES)
     async def games_disable(self, interaction: discord.Interaction, game: app_commands.Choice[str]):
         if not self._is_admin(interaction):
-            return await interaction.response.send_message("❌ You need **Manage Server** permission.", ephemeral=True)
+            return await interaction.response.send_message("❌ You need **Manage Channels** permission.", ephemeral=True)
         self.bot.db.set_game_enabled(interaction.guild_id, game.value, False)
         await interaction.response.send_message(
             f"🚫 **{game.name}** has been **disabled** in this server.",
@@ -78,7 +75,7 @@ class Admin(commands.Cog):
         channel: discord.TextChannel
     ):
         if not self._is_admin(interaction):
-            return await interaction.response.send_message("❌ You need **Manage Server** permission.", ephemeral=True)
+            return await interaction.response.send_message("❌ You need **Manage Channels** permission.", ephemeral=True)
         self.bot.db.set_game_channel(interaction.guild_id, game.value, channel.id)
         await interaction.response.send_message(
             f"📢 **{game.name}** will now trigger in {channel.mention}.",
@@ -90,7 +87,7 @@ class Admin(commands.Cog):
     @app_commands.choices(game=GAME_CHOICES)
     async def games_clearchannel(self, interaction: discord.Interaction, game: app_commands.Choice[str]):
         if not self._is_admin(interaction):
-            return await interaction.response.send_message("❌ You need **Manage Server** permission.", ephemeral=True)
+            return await interaction.response.send_message("❌ You need **Manage Channels** permission.", ephemeral=True)
         self.bot.db.set_game_channel(interaction.guild_id, game.value, None)
         await interaction.response.send_message(
             f"🗑️ Custom channel for **{game.name}** has been cleared.",
@@ -100,7 +97,7 @@ class Admin(commands.Cog):
     @games.command(name="status", description="View all games and their status for this server.")
     async def games_status(self, interaction: discord.Interaction):
         if not self._is_admin(interaction):
-            return await interaction.response.send_message("❌ You need **Manage Server** permission.", ephemeral=True)
+            return await interaction.response.send_message("❌ You need **Manage Channels** permission.", ephemeral=True)
         settings = self.bot.db.get_all_game_settings(interaction.guild_id)
         lines = []
         for s in settings:
@@ -119,7 +116,7 @@ class Admin(commands.Cog):
     @games.command(name="enableall", description="Enable all games in this server.")
     async def games_enableall(self, interaction: discord.Interaction):
         if not self._is_admin(interaction):
-            return await interaction.response.send_message("❌ You need **Manage Server** permission.", ephemeral=True)
+            return await interaction.response.send_message("❌ You need **Manage Channels** permission.", ephemeral=True)
         for key in GAME_KEYS:
             self.bot.db.set_game_enabled(interaction.guild_id, key, True)
         await interaction.response.send_message("✅ All games **enabled**.", ephemeral=True)
@@ -127,7 +124,7 @@ class Admin(commands.Cog):
     @games.command(name="disableall", description="Disable all games in this server.")
     async def games_disableall(self, interaction: discord.Interaction):
         if not self._is_admin(interaction):
-            return await interaction.response.send_message("❌ You need **Manage Server** permission.", ephemeral=True)
+            return await interaction.response.send_message("❌ You need **Manage Channels** permission.", ephemeral=True)
         for key in GAME_KEYS:
             self.bot.db.set_game_enabled(interaction.guild_id, key, False)
         await interaction.response.send_message("🚫 All games **disabled**.", ephemeral=True)

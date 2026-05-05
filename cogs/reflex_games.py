@@ -311,29 +311,29 @@ class ReflexGames(commands.Cog):
 
     @rtrigger.command(name="bomb", description="Trigger Don't Touch It.")
     async def rtrigger_bomb(self, interaction: discord.Interaction):
-        if not interaction.user.guild_permissions.administrator:
-            return await interaction.response.send_message("❌ Admins only.", ephemeral=True)
+        if not interaction.user.guild_permissions.manage_channels:
+            return await interaction.response.send_message("❌ You need **Manage Channels** permission.", ephemeral=True)
         await interaction.response.send_message("🎯 Triggering Don't Touch It...", ephemeral=True)
         await self.trigger_dont_touch_it(interaction.channel)
 
     @rtrigger.command(name="sniper", description="Trigger Sniper Window.")
     async def rtrigger_sniper(self, interaction: discord.Interaction):
-        if not interaction.user.guild_permissions.administrator:
-            return await interaction.response.send_message("❌ Admins only.", ephemeral=True)
+        if not interaction.user.guild_permissions.manage_channels:
+            return await interaction.response.send_message("❌ You need **Manage Channels** permission.", ephemeral=True)
         await interaction.response.send_message("🎯 Triggering Sniper Window...", ephemeral=True)
         await self.trigger_sniper_window(interaction.channel)
 
     @rtrigger.command(name="echo", description="Trigger Echo Chamber.")
     async def rtrigger_echo(self, interaction: discord.Interaction):
-        if not interaction.user.guild_permissions.administrator:
-            return await interaction.response.send_message("❌ Admins only.", ephemeral=True)
+        if not interaction.user.guild_permissions.manage_channels:
+            return await interaction.response.send_message("❌ You need **Manage Channels** permission.", ephemeral=True)
         await interaction.response.send_message("🎯 Triggering Echo Chamber...", ephemeral=True)
         await self.trigger_echo_chamber(interaction.channel)
 
     @rtrigger.command(name="freeze", description="Trigger Freeze Tag.")
     async def rtrigger_freeze(self, interaction: discord.Interaction):
-        if not interaction.user.guild_permissions.administrator:
-            return await interaction.response.send_message("❌ Admins only.", ephemeral=True)
+        if not interaction.user.guild_permissions.manage_channels:
+            return await interaction.response.send_message("❌ You need **Manage Channels** permission.", ephemeral=True)
         await interaction.response.send_message("🎯 Triggering Freeze Tag...", ephemeral=True)
         await self.trigger_freeze_tag(interaction.channel)
 
