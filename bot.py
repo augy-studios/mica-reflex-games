@@ -60,9 +60,8 @@ class Mica(commands.Bot):
     async def _update_presence(self):
         guild_count = len(self.guilds)
         await self.change_presence(
-            activity=discord.Activity(
-                type=discord.ActivityType.watching,
-                name=f"{guild_count} guilds' reaction speeds"
+            activity=discord.CustomActivity(
+                name=f"Testing the reaction speed of {guild_count} guilds"
             )
         )
 
